@@ -1,44 +1,38 @@
 #!/usr/bin/env node
 
-import yargs from "yargs";
+import _yargs from "yargs";
+import { hideBin } from "yargs/helpers";
+const yargs = _yargs(hideBin(process.argv));
 import { api } from "node-app-store-connect-api";
 
-const argv = yargs
-  .option("issuerId", {
-    alias: "i",
-    description: "Issuer ID",
-    type: "string",
-    demandOption: true,
-  })
-  .option("apiKey", {
-    alias: "k",
-    description: "API Key",
-    type: "string",
-    demandOption: true,
-  })
-  .option("privateKey", {
-    alias: "p",
-    description: "Private Key",
-    type: "string",
-    demandOption: true,
-  })
-  .option("workflowId", {
-    alias: "w",
-    description: "Workflow ID",
-    type: "string",
-    demandOption: true,
-  })
-  .option("branchId", {
-    alias: "b",
-    description: "Branch ID",
-    type: "string",
-    demandOption: true,
-  }).argv;
+new Promise(async (resolve, reject) => {
+  const argv = await yargs
+    .option("issuerId", { type: "string", require: true })
+    .option("apiKey", {
+      type: "string",
+      require: true,
+    })
+    .option("privateKey", {
+      type: "string",
+      require: true,
+    })
+    .option("workflowId", {
+      type: "string",
+      require: true,
+    })
+    .option("branchId", {
+      type: "string",
+      require: true,
+    })
+    .option("filename", { type: "string", require: true })
+    .alias("issuerId", "i")
+    .alias("apiKey", "k")
+    .alias("privateKey", "p")
+    .alias("workflowId", "w")
+    .alias("branchId", "b").argv;
 
-const { issuerId, apiKey, privateKey, workflowId, branchId } = argv;
+  const { issuerId, apiKey, privateKey, workflowId, branchId } = argv;
 
-return new Promise(async (resolve, reject) => {
-  // Retrieving secrets from Secrets Manager
   const { fetch } = await api({
     issuerId,
     apiKey,
