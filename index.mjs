@@ -24,7 +24,6 @@ new Promise(async (resolve, reject) => {
       type: "string",
       require: true,
     })
-    .option("filename", { type: "string", require: true })
     .alias("issuerId", "i")
     .alias("apiKey", "k")
     .alias("privateKey", "p")
