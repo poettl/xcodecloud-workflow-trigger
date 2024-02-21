@@ -63,8 +63,10 @@ new Promise(async (resolve, reject) => {
     }),
   });
   if (reponse.status === 201) {
-    resolve("ciBuildRun created");
+    console.log("trigger ciBuildRun success");
+    resolve();
   } else {
-    reject("ciBuildRun failed");
+    console.log("trigger ciBuildRun failed");
+    reject();
   }
 });
