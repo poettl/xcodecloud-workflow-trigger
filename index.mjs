@@ -67,6 +67,7 @@ new Promise(async (resolve, reject) => {
     resolve();
   } else {
     console.log("trigger ciBuildRun failed");
+    console.error(reponse);
     reject();
   }
 });
